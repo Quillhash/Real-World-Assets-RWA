@@ -4,6 +4,22 @@ Welcome to the Real World Assets (RWAs) GitHub repository by QuillAudits!
 
 This repository serves as a resource hub for developers, enthusiasts, and researchers interested in exploring, developing, and understanding RWAs on the blockchain. Here, you'll find code examples, smart contract templates, technical guides, and relevant resources to help you navigate the exciting world of RWAs.
 
+
+## RWA Development Handbook
+
+> **Start here if you want to truly understand how RWA systems are designed, built, and regulated.**
+
+
+<p align="center">
+  <img src="./public/RWA_handbook.png" alt="rwa_handbook_image" />
+</p>
+
+We've published a full-length handbook at:
+
+#### [research/rwa-development](https://www.quillaudits.com/research/rwa-development)
+
+This handbook goes far beyond surface-level explanations. It is written for builders, auditors, founders, and protocol architects who need a complete mental model of RWA systems, from off-chain custody and legal structures to on-chain token standards, settlement flows, and compliance enforcement. Every chapter is built around real architectures, real constraints, and real tradeoffs. Just deep, implementation-ready knowledge for anyone serious about building or securing RWA protocols.
+
 ### Understanding Real World Assets on Blockchain :
 
 Tokenized real-world assets (RWAs) are blockchain-based digital tokens that represent physical and traditional financial assets, such as cash, commodities, equities, bonds, credit, artwork, and intellectual property. The tokenization of RWAs marks a significant shift in how these assets can be accessed, exchanged, and managed, unlocking an era of new opportunities for both blockchain-powered financial services and a wide variety of non-financial use cases underpinned by cryptography and decentralized consensus. RWAs can be tokenized on blockchain networks, allowing for fractional ownership, increased liquidity, and enhanced accessibility to traditionally illiquid assets.
