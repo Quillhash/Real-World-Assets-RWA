@@ -48,7 +48,7 @@ Real World Assets (RWAs) encompass a wide range of tangible and intangible asset
 
 ### Key Components and Considerations in RWAs :
 
-![Categories of RWAs](https://assets-global.website-files.com/5f75fe1dce99248be5a892db/65675d919a0831972f6deee3_6552522f392cb9f529f5a318_652562d7832838b219cbf4f2_RWAs-in-DeFi_V2_16x9.png)
+![Categories of RWAs](./public/rwa-key-components.png)
 
 Developing a Real World Asset (RWA) on the blockchain involves several steps and considerations to ensure compliance, security, and efficiency.
 
