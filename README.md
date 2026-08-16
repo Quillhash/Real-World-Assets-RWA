@@ -1,102 +1,122 @@
-# Real World Assets (RWAs)
+# Real-World Asset (RWA) Tokenization — Developer Handbook & Reference Implementation
 
-Welcome to the Real World Assets (RWAs) GitHub repository by QuillAudits!
+Open-source resource hub by [QuillAudits](https://www.quillaudits.com) for developers, auditors, and researchers building **tokenized real-world assets (RWAs)** on blockchain. It includes a working Foundry reference implementation (a synthetic tokenized Apple share backed by WETH with Chainlink oracles), an RWA categorization framework, token standard references, and the audit methodology we apply to RWA protocols.
 
-This repository serves as a resource hub for developers, enthusiasts, and researchers interested in exploring, developing, and understanding RWAs on the blockchain. Here, you'll find code examples, smart contract templates, technical guides, and relevant resources to help you navigate the exciting world of RWAs.
+**Quick links:**
+[📘 RWA Development Handbook](https://www.quillaudits.com/research/rwa-development) ·
+[🧭 Tokenization 101 (interactive standard picker)](https://www.quillaudits.com/tokenization-101) ·
+[💥 RWA Incident Database](https://www.quillaudits.com/tokenization-101/incidents) ·
+[⚖️ Build vs Buy: Platform Comparison](https://www.quillaudits.com/tokenization-101/build-vs-buy) ·
+[🛡️ Get an RWA Security Audit](https://www.quillaudits.com/services/rwa-security-audit)
 
+---
+
+## Contents
+
+- [RWA Development Handbook](#rwa-development-handbook)
+- [Understanding Real-World Assets on Blockchain](#understanding-real-world-assets-on-blockchain)
+- [Types of RWAs](#types-of-rwas)
+- [Key Components and Considerations](#key-components-and-considerations-in-rwas)
+- [Categorisation of RWAs](#categorisation-of-rwas)
+- [RWA Token Standards](#rwa-token-standards)
+- [Reference Implementation: Tokenising an Apple Share](#tokenising-an-apple-share)
+- [Auditing Process for RWA Tokenization](#auditing-process-for-tokenization-of-real-world-assets)
+- [Fuzz Testing in RWA Audits](#integration-of-fuzz-testing-in-the-audit-process)
+- [Further Reading](#further-reading)
+- [Related QuillAudits Repositories](#related-quillaudits-repositories)
+
+---
 
 ## RWA Development Handbook
 
 > **Start here if you want to truly understand how RWA systems are designed, built, and regulated.**
 
-
 <p align="center">
-  <img src="./public/RWA_handbook.png" alt="rwa_handbook_image" />
+  <a href="https://www.quillaudits.com/research/rwa-development">
+    <img src="./public/RWA_handbook.png" alt="RWA Development Handbook by QuillAudits — tokenization, token standards, and architecture" />
+  </a>
 </p>
 
-We've published a full-length handbook at:
+We've published a full-length handbook at **[quillaudits.com/research/rwa-development](https://www.quillaudits.com/research/rwa-development)**.
 
-#### [research/rwa-development](https://www.quillaudits.com/research/rwa-development)
+It is written for builders, auditors, founders, and protocol architects who need a complete mental model of RWA systems — from off-chain custody and legal structures to on-chain token standards, settlement flows, and compliance enforcement. Key chapters:
 
-This handbook goes far beyond surface-level explanations. It is written for builders, auditors, founders, and protocol architects who need a complete mental model of RWA systems, from off-chain custody and legal structures to on-chain token standards, settlement flows, and compliance enforcement. Every chapter is built around real architectures, real constraints, and real tradeoffs. Just deep, implementation-ready knowledge for anyone serious about building or securing RWA protocols.
+- [Ecosystem Landscape](https://www.quillaudits.com/research/rwa-development/rwa-handbook/understanding-rwa-ecosystem) — how Ondo, Centrifuge, Maple, Securitize, Backed, OpenEden, Superstate and 15+ platforms are actually architected (vaults, SPVs, tranching, compliance layers)
+- [Regulations Mapping](https://www.quillaudits.com/research/rwa-development/rwa-handbook/understanding-rwa-regulations) — jurisdiction-by-jurisdiction rules for tokenized assets
+- [RWA System Design](https://www.quillaudits.com/research/rwa-development/developer/rwa-system-design) — end-to-end architecture for developers
+- [First RWA: Stablecoins](https://www.quillaudits.com/research/rwa-development/developer/first-rwa-stablecoins) and [Chains Built for RWAs](https://www.quillaudits.com/research/rwa-development/developer/chains-built-for-rwa)
 
-### Understanding Real World Assets on Blockchain :
+Prefer to explore interactively? **[Tokenization 101](https://www.quillaudits.com/tokenization-101)** lets you pick an asset class and chain and get the right token standard with live market data.
+
+## Understanding Real World Assets on Blockchain
 
 Tokenized real-world assets (RWAs) are blockchain-based digital tokens that represent physical and traditional financial assets, such as cash, commodities, equities, bonds, credit, artwork, and intellectual property. The tokenization of RWAs marks a significant shift in how these assets can be accessed, exchanged, and managed, unlocking an era of new opportunities for both blockchain-powered financial services and a wide variety of non-financial use cases underpinned by cryptography and decentralized consensus. RWAs can be tokenized on blockchain networks, allowing for fractional ownership, increased liquidity, and enhanced accessibility to traditionally illiquid assets.
 
-### Types of RWAs :
+## Types of RWAs
 
 Real World Assets (RWAs) encompass a wide range of tangible and intangible assets with intrinsic value. These are just a few examples of the diverse range of assets that can be tokenized on the blockchain.
 
-1. Real Estate: This includes residential, commercial, and industrial properties. Real estate tokenization allows investors to own fractional shares of properties, providing liquidity and diversification.
+1. **Real Estate**: Residential, commercial, and industrial properties. Real estate tokenization allows investors to own fractional shares of properties, providing liquidity and diversification. See our [technical guide to real estate tokenization](https://www.quillaudits.com/blog/rwa/technical-guide-to-real-estate-tokenization).
 
-2. Commodities: Physical commodities such as precious metals (gold, silver), agricultural products (grains, coffee), energy resources (oil, natural gas), and others can be tokenized to facilitate trading and investment.
+2. **Commodities**: Physical commodities such as precious metals (gold, silver), agricultural products (grains, coffee), energy resources (oil, natural gas), and others can be tokenized to facilitate trading and investment.
 
-3. Art and Collectibles: Tokenization of art, rare collectibles, and memorabilia enables fractional ownership and investment opportunities in traditionally illiquid markets.
+3. **Art and Collectibles**: Tokenization of art, rare collectibles, and memorabilia enables fractional ownership and investment opportunities in traditionally illiquid markets.
 
-4. Intellectual Property (IP): This includes patents, copyrights, trademarks, and other forms of intellectual property rights. Tokenization allows creators to monetize their IP assets and investors to participate in revenue-sharing agreements.
+4. **Intellectual Property (IP)**: Patents, copyrights, trademarks, and other IP rights. Tokenization allows creators to monetize their IP assets and investors to participate in revenue-sharing agreements.
 
-5. Equity and Securities: Shares of private companies, stocks, bonds, and other financial instruments can be tokenized to increase liquidity, streamline transactions, and enable global access to capital markets.
+5. **Equity and Securities**: Shares of private companies, stocks, bonds, and other financial instruments can be tokenized to increase liquidity, streamline transactions, and enable global access to capital markets.
 
-6. Revenue-Generating Contracts: Contracts with predictable revenue streams, such as leases, royalties, and licensing agreements, can be tokenized to provide investors with recurring income opportunities.
+6. **Revenue-Generating Contracts**: Contracts with predictable revenue streams, such as leases, royalties, and licensing agreements.
 
-7. Deeds and Titles: Tokenization of deeds, titles, and ownership certificates for real estate, vehicles, and other assets can streamline transfer processes and enhance transparency in ownership records.
+7. **Deeds and Titles**: Tokenization of deeds, titles, and ownership certificates for real estate, vehicles, and other assets can streamline transfer processes and enhance transparency in ownership records.
 
-8. Carbon Credits and Renewable Energy Assets: Environmental assets such as carbon credits, renewable energy certificates (RECs), and carbon offsets can be tokenized to facilitate trading and investment in sustainable initiatives.
+8. **Carbon Credits and Renewable Energy Assets**: Environmental assets such as carbon credits, renewable energy certificates (RECs), and carbon offsets.
 
-9. Luxury Assets: High-value luxury items such as yachts, private jets, and luxury watches can be tokenized to fractionalize ownership and broaden access to exclusive markets.
+9. **Luxury Assets**: High-value items such as yachts, private jets, and luxury watches.
 
-### Key Components and Considerations in RWAs :
+## Key Components and Considerations in RWAs
 
-![Categories of RWAs](./public/rwa-key-components.png)
+![Key components of tokenizing real-world assets in DeFi](./public/rwa-key-components.png)
 
 Developing a Real World Asset (RWA) on the blockchain involves several steps and considerations to ensure compliance, security, and efficiency.
 
-1. Define the Asset: Determine the real-world asset you want to tokenize on the blockchain. This could include real estate, commodities, art, intellectual property, or any other asset with tangible or intrinsic value.
+1. **Define the Asset**: Determine the real-world asset you want to tokenize on the blockchain — real estate, commodities, art, intellectual property, or any other asset with tangible or intrinsic value.
 
-2. Legal and Regulatory Compliance: Understand the legal and regulatory requirements for tokenizing the chosen asset. Depending on the jurisdiction and type of asset, you may need to comply with securities regulations, property laws, anti-money laundering (AML) regulations, and know-your-customer (KYC) requirements.
+2. **Legal and Regulatory Compliance**: Understand the legal and regulatory requirements for tokenizing the chosen asset. Depending on the jurisdiction and asset type, you may need to comply with securities regulations, property laws, AML regulations, and KYC requirements. Our handbook's [Regulations Mapping chapter](https://www.quillaudits.com/research/rwa-development/rwa-handbook/understanding-rwa-regulations) covers the major jurisdictions.
 
-3. Choose the Blockchain Platform: Select a suitable blockchain platform for tokenizing the asset. Ethereum and other smart contract platforms are commonly used for tokenization due to their programmability and established ecosystem. Alternatively, consider private or permissioned blockchains for specific use cases.
+3. **Choose the Blockchain Platform**: Select a suitable blockchain platform for tokenizing the asset. Ethereum and other smart contract platforms are commonly used due to their programmability and established ecosystem; several chains are now [purpose-built for RWAs](https://www.quillaudits.com/research/rwa-development/developer/chains-built-for-rwa).
 
-4. Token Standards: Choose or develop a token standard that best suits the characteristics of the asset. For example, ERC-20, ERC-721 (NFTs), or ERC-1400 (Security Tokens) are common standards used for tokenizing assets on Ethereum.
+4. **Token Standards**: Choose a token standard that suits the characteristics of the asset — see the [RWA Token Standards](#rwa-token-standards) section below for the full landscape (ERC-20, ERC-721, ERC-1400, ERC-3643, ERC-4626, and non-EVM standards).
 
-5. Collateralization: Many tokenized RWAs are backed by collateral, which could be the asset itself (in the case of direct backing) or other assets and financial instruments (in the case of indirect backing). The collateralization process ensures that the on-chain token maintains a stable and defined value relative to the off-chain asset it represents.
+5. **Collateralization**: Many tokenized RWAs are backed by collateral — the asset itself (direct backing) or other assets and financial instruments (indirect backing). The collateralization process ensures that the on-chain token maintains a stable and defined value relative to the off-chain asset it represents.
 
-6. Smart Contract Development: Develop smart contracts to represent and manage the asset on the blockchain. These contracts should define token issuance, transfer rules, ownership rights, and any other functionalities required to manage the asset's lifecycle.
+6. **Smart Contract Development**: Develop smart contracts to represent and manage the asset on the blockchain — token issuance, transfer rules, ownership rights, and lifecycle management.
 
-7. Oracles and Data Feeds: Integrate oracles or data feeds to bridge the gap between the blockchain and the real world. Oracles provide external data, such as asset valuations, ownership records, or regulatory compliance information, ensuring transparency and accuracy.
+7. **Oracles and Data Feeds**: Integrate oracles to bridge the gap between the blockchain and the real world — asset valuations, ownership records, or regulatory compliance information. Oracle and NAV manipulation is among the most common RWA attack vectors; see [real incidents](https://www.quillaudits.com/tokenization-101/incidents).
 
-8. Tokenization Process: Tokenize the asset by minting digital tokens on the blockchain. Each token represents ownership or fractional ownership of the underlying asset. Ensure that the tokenization process follows legal requirements and is properly documented.
+8. **Tokenization Process**: Mint digital tokens on the blockchain, each representing ownership or fractional ownership of the underlying asset, following legal requirements with proper documentation.
 
-9. Security and Audits (we're here for it :D): Conduct security audits of smart contracts and overall system architecture to identify and mitigate potential vulnerabilities or attack vectors. Implement best practices for secure smart contract development and deploy contracts on testnets for thorough testing.
+9. **Security and Audits** (we're here for it :D): Conduct [security audits](https://www.quillaudits.com/services/rwa-security-audit) of smart contracts and overall system architecture to identify and mitigate vulnerabilities. Implement secure development best practices and deploy on testnets for thorough testing.
 
 ## Categorisation of RWAs
 
-![Categories of RWAs](./public/cover.png)
+![Categorisation of RWAs: asset location, collateral location, backing type](./public/cover.png)
 
 We can tokenize real-world assets by combining any of the following traits:
 
-1. Asset location: On-chain or Off-Chain
-2. Collateral location: On-chain or Off-Chain Collateral
-3. Backing type: Direct backing or Indirect (synthetic)
+1. **Asset location**: On-chain or Off-chain
+2. **Collateral location**: On-chain or Off-chain collateral
+3. **Backing type**: Direct backing or Indirect (synthetic)
 
--   Asset location - refers to the location of the asset which is being tokenised.
+- **Asset location** — the location of the asset being tokenised.
+  - Example: Real estate & gold are off-chain assets whereas BTC & ETH are on-chain assets.
+- **Collateral location** — the location of the collateral.
+  - Example: PAXG is a digital token backed by physical gold (off-chain collateral) & the DAI stablecoin requires on-chain collateral.
+- **Backing type** — the type of collateral backing the asset.
+  1. Direct backing — collateral backing the asset is the same as the asset. Example: PAXG is directly backed by gold; USDC is directly backed by USD.
+  2. Synthetic (indirect) backing — collateral backing the asset is not the same as the asset. Example: DAI by MakerDAO is backed by on-chain collateral consisting of other crypto tokens.
 
-    -   Example: Real estate & Gold are Off-chain assets whereas BTC & ETH are On-chain assets.
-
--   Collateral location - refers to the location of the collateral
-
-    -   Example: PAXG is a digital token backed by physical gold (Off-chain collateral) & DAI stablecoin requires On-chain collateral
-
--   Backing type - refers to the type of the collateral backing the asset.
-    1. Direct backing - Collateral backing the asset is the same as the asset.
-    -   Example: PAXG token is directly backed by gold. Similarly, USDC is also directly backed by actual USD.
-    2. Synthetic (Indirect) backing - Collateral backing the asset is not the same as the asset.
-    -   Example: DAI coin by MakerDAO is backed by on-chain collateral assets which can consist of other crypto tokens but not USDT(since DAI is a stablecoin).
-
-Since we have 3 categories each with 2 options, we can have 8 different types of RWAs. Having 8 possible categories of RWAs doesn't necessarily mean that all of them have being implemented till now.
-
-We'll be focusing on the five majorly used categories of RWAs:
+Since we have 3 categories each with 2 options, there are 8 possible types of RWAs — though not all of them have been implemented in practice. We focus on the five majorly used categories:
 
 1. On-Chain Asset with On-Chain Collateral and Direct Backing
 2. On-Chain Asset with On-Chain Collateral and Synthetic (Indirect) Backing
@@ -108,49 +128,62 @@ We'll be focusing on the five majorly used categories of RWAs:
 
 Wrapped ETH (WETH) and Wrapped BTC (WBTC) are examples of on-chain assets which are directly/indirectly backed by on-chain collateral.
 
--   WETH: Ether (ETH), the native cryptocurrency of Ethereum, doesn't conform to the ERC-20 token standard, which is a widely adopted standard for Ethereum tokens. This discrepancy can cause compatibility issues with ERC-20 based dApps. WETH was introduced as a solution to this problem, allowing ETH to be "wrapped" into an ERC-20 compatible format. To obtain WETH, users send ETH to a WETH smart contract, which locks the ETH and issues an equivalent amount of WETH in return. This process is reversible; users can convert their WETH back to ETH by sending the WETH back to the smart contract. The value of WETH is directly backed by ETH at a 1:1 ratio, ensuring that each WETH token is always equivalent to one ETH. The ETH used as collateral is held securely in the smart contract.
+- **WETH**: Ether (ETH), the native cryptocurrency of Ethereum, doesn't conform to the ERC-20 token standard. WETH allows ETH to be "wrapped" into an ERC-20 compatible format: users send ETH to the WETH smart contract, which locks the ETH and issues an equivalent amount of WETH. The process is reversible, and WETH is directly backed by ETH at a 1:1 ratio held in the contract.
 
--   WBTC: WBTC brings Bitcoin's liquidity to the Ethereum ecosystem, allowing Bitcoin holders to interact with Ethereum's DeFi applications without selling their BTC. WBTC is created through a process involving merchants and custodians. BTC is sent to a custodian, who then mints an equivalent amount of WBTC on Ethereum. This process is also reversible, allowing WBTC holders to redeem their tokens for BTC. The value of WBTC is directly backed by BTC, with a 1:1 ratio. Each WBTC token represents one BTC, and the corresponding BTC is held by custodians off the Ethereum blockchain but is managed through on-chain contracts and mechanisms for minting and burning WBTC.
+- **WBTC**: WBTC brings Bitcoin's liquidity to the Ethereum ecosystem. BTC is sent to a custodian, who mints an equivalent amount of WBTC on Ethereum; holders can redeem WBTC for BTC. Each WBTC represents one BTC held by custodians off-chain, managed through on-chain minting and burning mechanisms.
 
 ## Off-Chain Asset with Off-Chain Collateral and Direct/Indirect Backing
 
-USDT and USDC fall into a unique category of RWAs, which are digital tokens representing fiat currencies like the US dollar on blockchain platforms. These RWAs are characterized by their off-chain assets (fiat currencies, gold, stock shares, real estate, etc) and off-chain collateral, with their value directly or indirectly backed by these reserves.
+USDT and USDC fall into a unique category of RWAs — digital tokens representing fiat currencies on blockchain platforms, characterized by off-chain assets (fiat, gold, stock shares, real estate) and off-chain collateral.
 
-This process not only enhances liquidity and accessibility but also introduces new opportunities for investment and ownership.
+- **Technical framework for tokenizing RWAs:**
+  - **Smart Contracts**: Self-executing contracts governing the creation, distribution, and management of tokens representing RWAs.
+  - **Asset Custody and Verification**: Ensuring the real-world asset is securely held and verified — a secure vault for gold, a reliable registry for real estate.
+  - **Oracles for Real-World Data**: Bringing real-world information (valuations, ownership changes, price fluctuations) on-chain securely.
+  - **Regulatory Compliance and Legal Framework**: Legal structures that recognize token ownership as equivalent to owning a portion of the physical asset.
+  - **Token Standards and Interoperability**: Established standards ensure tokens interact seamlessly with wallets, exchanges, and other smart contracts.
 
--   Technical Framework for Tokenizing RWAs:
-
-    -   Smart Contracts: The backbone of any tokenization platform is smart contracts, self-executing contracts with the terms of the agreement directly written into code. These contracts govern the creation, distribution, and management of tokens representing RWAs.
-
-    -   Asset Custody and Verification: Essential to the process is ensuring that the real-world asset is securely held and verified. For instance, tokenizing gold would require a secure vault, and tokenizing real estate would need a reliable registry to confirm ownership and liens.
-
-    -   Oracles for Real-World Data: Oracles are used to bring real-world information onto the blockchain securely. They can provide data on asset valuation, ownership changes, or even gold price fluctuations, which is crucial for maintaining the token's value and relevance.
-
-    -   Regulatory Compliance and Legal Framework: Ensuring compliance with local and international regulations is critical. This might involve setting up legal structures that recognize token ownership as equivalent to owning a portion of the physical asset.
-
-    -   Token Standards and Interoperability: Using established token standards like ERC-20 (for fungible tokens) or ERC-721 (for non-fungible tokens, useful in real estate to represent unique properties) ensures that the tokens can interact seamlessly with wallets, exchanges, and other smart contracts.
-
--   Examples:
-
-    -   Gold: Tokenizing gold involves issuing digital tokens backed by physical gold stored in secure vaults. Each token represents a specific quantity of gold (e.g., 1 gram). The physical gold acts as collateral, and the token's value is directly tied to the gold price, offering investors exposure to gold without the need for physical possession. Example - Paxos Gold (PAXG) https://github.com/paxosglobal/paxos-gold-contract/tree/master/contracts
-
-    -   Real Estate: Real estate tokenization breaks down property ownership into digital tokens, allowing for fractional ownership and investment. This could dramatically lower entry barriers to real estate investment and improve liquidity in the market. Each token might represent a share of ownership in a property, a right to rental income, or other property-related rights. Currently active Real Estate RWA projects - https://www.alchemy.com/best/real-estate-rwas
-
-    -   Stock Market Shares: Tokenizing stock shares involves creating digital tokens that represent ownership of a company's stock. This can democratize access to equity markets, allowing for fractional ownership of stocks and potentially opening up global markets to a wider range of investors.
+- **Examples:**
+  - **Gold**: Digital tokens backed by physical gold in secure vaults, e.g. [Paxos Gold (PAXG)](https://github.com/paxosglobal/paxos-gold-contract/tree/master/contracts).
+  - **Real Estate**: Fractional ownership via tokens representing shares in a property or rights to rental income — see [currently active real estate RWA projects](https://www.alchemy.com/best/real-estate-rwas) and our [real estate tokenization guide](https://www.quillaudits.com/blog/rwa/technical-guide-to-real-estate-tokenization).
+  - **Stock Market Shares**: Digital tokens representing ownership of a company's stock, enabling fractional ownership and global access — exactly what the [reference implementation below](#tokenising-an-apple-share) demonstrates.
 
 ## Off-Chain Asset with On-Chain Collateral and Indirect Backing
 
-The DAI stablecoin is a notable example of an off-chain asset with on-chain collateral and indirect backing, primarily because its value is pegged to the U.S. dollar (an off-chain asset), while its collateral consists of various cryptocurrencies stored on-chain within the MakerDAO system. This setup represents an indirect backing because the value of DAI is stabilized against the U.S. dollar through smart contracts and collateralized debt positions (CDPs), rather than a direct 1:1 reserve of dollars.
+The DAI stablecoin is a notable example: its value is pegged to the U.S. dollar (an off-chain asset), while its collateral consists of cryptocurrencies stored on-chain within the MakerDAO system. This is indirect backing — DAI is stabilized against the dollar through smart contracts and collateralized debt positions, not a 1:1 dollar reserve.
 
-### Tokenising an Apple share
+## RWA Token Standards
 
-In this repository, we'll be diving deep into the technicalities of tokenisation of Real-World Assets by developing an Apple Coin (AAPL) ERC-20 token where the value of each AAPL token will be 1:1 pegged with the real time value of an Apple share in the US stocks market. The backing collateral will be wETH (on-chain collateral & indirectly backed).
+Choosing the right standard is the single highest-leverage design decision in an RWA system. The full landscape, with specs, function-level breakdowns, and security considerations, is in the [handbook](https://www.quillaudits.com/research/rwa-development) — or use [Tokenization 101](https://www.quillaudits.com/tokenization-101) to get a recommendation for your asset class and chain.
 
-![AAPL](./public/AAPL.png)
+| Standard | Purpose | Reference |
+|---|---|---|
+| **ERC-3643 (T-REX)** | Permissioned tokens for regulated securities — onchain identity + modular compliance | [Handbook page](https://www.quillaudits.com/research/rwa-development/relevant-standards/erc-3643-token) · [Explainer](https://www.quillaudits.com/blog/rwa/erc-3643-explained) |
+| **ERC-4626** | Tokenized yield-bearing vaults (treasuries, private credit) | [Handbook](https://www.quillaudits.com/research/rwa-development) |
+| **ERC-7540** | Asynchronous ERC-4626 vaults (request-based deposit/redeem) | [Handbook](https://www.quillaudits.com/research/rwa-development) |
+| **ERC-1400** | Partitioned security tokens with document management | [Handbook](https://www.quillaudits.com/research/rwa-development) |
+| **ERC-7518** | Dynamic compliant interoperable security token | [Explainer](https://www.quillaudits.com/blog/rwa/understanding-erc-7518) |
+| **ERC-7943** | Universal RWA interface | [Explainer](https://www.quillaudits.com/blog/rwa/erc-7943-explained) |
+| **Non-EVM** | Solana Token-2022 & sRFC-20, Algorand ASA, Stellar, Tezos FA2/CMTAT, Hedera HTS, Cardano, Aptos, Sui, Kadena, Polkadot Asset Hub | [Non-EVM standards](https://www.quillaudits.com/research/rwa-development/non-evm-standards/solana-srfc-00020) |
 
-The project source code is pushed in the same repository for one's reference.
+## Tokenising an Apple Share
 
-The AAPL smart contract is designed to tokenize Apple shares, allowing users to mint and redeem tokens that represent a share in Apple, using Ethereum (ETH) as collateral. This contract ensures that the system remains over-collateralized, maintaining algorithmic stability without governance or fees. Here's a detailed breakdown of the contract's components:
+In this repository, we dive deep into the technicalities of RWA tokenisation by developing an **Apple Coin (AAPL) ERC-20 token** where the value of each AAPL token is 1:1 pegged to the real-time value of an Apple share in the US stock market. The backing collateral is WETH (on-chain collateral, indirectly backed), with prices from Chainlink feeds.
+
+![AAPL tokenized Apple share architecture](./public/AAPL.png)
+
+### Run it yourself
+
+```bash
+git clone https://github.com/Quillhash/Real-World-Assets-RWA.git
+cd Real-World-Assets-RWA
+forge build
+forge test
+```
+
+Built with [Foundry](https://book.getfoundry.sh/); dependencies: OpenZeppelin, Chainlink contracts, forge-std.
+
+The AAPL smart contract is designed to tokenize Apple shares, allowing users to mint and redeem tokens that represent a share in Apple, using ETH as collateral. The system remains over-collateralized, maintaining algorithmic stability without governance or fees.
 
 **Constructor**
 
@@ -296,7 +329,9 @@ Now, let’s apply this auditing framework to the provided AAPL smart contract:
 
 -   Access Controls: The contract currently does not implement any special access controls beyond the typical ownership patterns. Depending on the business model, you might need role-based access control mechanisms.
 
-### Integration of Fuzz Testing in the Audit Process
+> For real-world examples of what goes wrong when these steps are skipped, see our curated **[RWA incident database](https://www.quillaudits.com/tokenization-101/incidents)** — $106M+ in tokenization failures mapped by asset class, failure mode, and token standard.
+
+## Integration of Fuzz Testing in the Audit Process
 
 Purpose: Fuzz testing is critical for identifying hidden issues that are not obvious during regular testing phases. It helps in detecting vulnerabilities like buffer overflows, crashes, memory leaks, and handling of unexpected or malicious inputs.
 
@@ -319,3 +354,30 @@ For the `AAPL` smart contract, incorporating fuzz testing would mean:
 2. Automation: Fuzz tests can be automated and run continuously as regression tests, helping catch issues that might be introduced as the contract evolves.
 
 3. Complexity Handling: Contracts interacting with external data sources like oracles can behave unpredictably. Fuzz testing helps ensure that the contract can handle such complexity and variability without failing.
+
+---
+
+## Further Reading
+
+- [RWA Security Risks and Best Practices](https://www.quillaudits.com/blog/rwa/rwa-security-risks-and-practices) — securing tokenized assets end-to-end
+- [Top 10 RWA Attack Vectors](https://www.quillaudits.com/blog/rwa/top-10-rwa-attack-vectors) — every developer & auditor must watch
+- [Cross-Chain RWA Architecture](https://www.quillaudits.com/blog/rwa/cross-chain-rwa-architecture)
+- [RWA Settlement & Redemption](https://www.quillaudits.com/blog/rwa/rwa-settlement-and-redemption)
+- [Build vs Buy: 17+ Tokenization Platforms Compared](https://www.quillaudits.com/tokenization-101/build-vs-buy)
+- [Web3 Hacks Database](https://www.quillaudits.com/web3-hacks-database)
+
+## Related QuillAudits Repositories
+
+- [Solidity-Attack-Vectors](https://github.com/Quillhash/Solidity-Attack-Vectors) — catalogue of Solidity vulnerabilities
+- [DeFi-Attack-Vectors](https://github.com/Quillhash/DeFi-Attack-Vectors) — DeFi-specific threat patterns
+- [QuillAudit Audit Reports](https://github.com/Quillhash/QuillAudit_smart_contract_audit_Reports) — public audit reports incl. RWA & DeFi protocols
+- [Web3 Security Tools](https://github.com/Quillhash/Web3-Security-Tools) — curated tooling directory
+- [Auditor Roadmap](https://github.com/Quillhash/QuillAudit_Smart_contract_Auditor_Roadmap) — learn smart contract auditing
+
+## About QuillAudits
+
+[QuillAudits](https://www.quillaudits.com) is a Web3 security firm with 1,500+ projects secured and $3B+ in digital assets under protection. If you're building an RWA protocol, [talk to us about an audit](https://www.quillaudits.com/services/rwa-security-audit) or check your design's [RWA security score](https://www.quillaudits.com/rwa-security-score).
+
+## License
+
+MIT — see [LICENSE](./LICENSE).
