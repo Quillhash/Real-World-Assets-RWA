@@ -159,9 +159,9 @@ Choosing the right standard is the single highest-leverage design decision in an
 | Standard | Purpose | Reference |
 |---|---|---|
 | **ERC-3643 (T-REX)** | Permissioned tokens for regulated securities — onchain identity + modular compliance | [Handbook page](https://www.quillaudits.com/research/rwa-development/relevant-standards/erc-3643-token) · [Explainer](https://www.quillaudits.com/blog/rwa/erc-3643-explained) |
-| **ERC-4626** | Tokenized yield-bearing vaults (treasuries, private credit) | [Handbook](https://www.quillaudits.com/research/rwa-development) |
-| **ERC-7540** | Asynchronous ERC-4626 vaults (request-based deposit/redeem) | [Handbook](https://www.quillaudits.com/research/rwa-development) |
-| **ERC-1400** | Partitioned security tokens with document management | [Handbook](https://www.quillaudits.com/research/rwa-development) |
+| **ERC-4626** | Tokenized yield-bearing vaults (treasuries, private credit) | [Handbook](https://www.quillaudits.com/research/rwa-development/relevant-standards/erc-4626-standard) |
+| **ERC-7540** | Asynchronous ERC-4626 vaults (request-based deposit/redeem) | [Handbook](https://www.quillaudits.com/research/rwa-development/relevant-standards/erc-7540-async-erc-4626-tokenized) |
+| **ERC-1400** | Partitioned security tokens with document management | [Handbook](https://www.quillaudits.com/research/rwa-development/relevant-standards/erc-1400-token-standard) |
 | **ERC-7518** | Dynamic compliant interoperable security token | [Explainer](https://www.quillaudits.com/blog/rwa/understanding-erc-7518) |
 | **ERC-7943** | Universal RWA interface | [Explainer](https://www.quillaudits.com/blog/rwa/erc-7943-explained) |
 | **Non-EVM** | Solana Token-2022 & sRFC-20, Algorand ASA, Stellar, Tezos FA2/CMTAT, Hedera HTS, Cardano, Aptos, Sui, Kadena, Polkadot Asset Hub | [Non-EVM standards](https://www.quillaudits.com/research/rwa-development/non-evm-standards/solana-srfc-00020) |
