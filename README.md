@@ -3,11 +3,12 @@
 Open-source resource hub by [QuillAudits](https://www.quillaudits.com) for developers, auditors, and researchers building **tokenized real-world assets (RWAs)** on blockchain. It includes a working Foundry reference implementation (a synthetic tokenized Apple share backed by WETH with Chainlink oracles), an RWA categorization framework, token standard references, and the audit methodology we apply to RWA protocols.
 
 **Quick links:**
-[📘 RWA Development Handbook](https://www.quillaudits.com/research/rwa-development) ·
-[🧭 Tokenization 101 (interactive standard picker)](https://www.quillaudits.com/tokenization-101) ·
-[💥 RWA Incident Database](https://www.quillaudits.com/tokenization-101/incidents) ·
-[⚖️ Build vs Buy: Platform Comparison](https://www.quillaudits.com/tokenization-101/build-vs-buy) ·
-[🛡️ Get an RWA Security Audit](https://www.quillaudits.com/services/rwa-security-audit)
+- [📘 RWA Development Handbook](https://www.quillaudits.com/research/rwa-development)
+- [🧭 Tokenization 101 (interactive standard picker)](https://www.quillaudits.com/tokenization-101)
+- [💥 RWA Incident Database](https://www.quillaudits.com/tokenization-101/incidents)
+- [⚖️ Build vs Buy: Platform Comparison](https://www.quillaudits.com/tokenization-101/build-vs-buy)
+- [🛡️ Get an RWA Security Audit](https://www.quillaudits.com/services/rwa-security-audit)
+- [📊 RWA Protocol Security Score](https://www.quillaudits.com/rwa-security-score)
 
 ---
 
